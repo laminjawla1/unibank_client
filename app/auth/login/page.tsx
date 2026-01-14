@@ -5,6 +5,7 @@ import { useAuthStore } from "@/stores/authStore";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import Link from "next/link";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -13,17 +14,17 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const login = useAuthStore((s) => s.login);
+  const user = useAuthStore((s) => s.user);
   const router = useRouter();
 
   // Auto login if token exists in cookies
   useEffect(() => {
     const token = Cookies.get("token");
     if (token) {
-      // Optionally fetch user from backend or use placeholder
-      login(token, { name: "User" });
+      login(token, user ?? { name: "User" });
       router.push("/dashboard");
     }
-  }, [login, router]);
+  }, [login, router, user]);
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
@@ -112,6 +113,21 @@ const Login = () => {
           >
             {loading ? "LOGGING IN" : "LOGIN"}
           </button>
+
+          <div className="border-t border-slate-200 pt-4 text-center">
+            <p className="text-sm text-slate-600">
+              Don’t have an account?
+            </p>
+            <p className="mt-1 text-xs text-slate-500">
+              Accounts are created by an Admin/Teller.
+            </p>
+            <Link
+              href="/auth/signup"
+              className="mt-3 inline-flex items-center justify-center text-sm font-semibold text-slate-900 hover:underline"
+            >
+              Go to registration
+            </Link>
+          </div>
         </form>
       </div>
     </div>

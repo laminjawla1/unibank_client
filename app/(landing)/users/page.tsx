@@ -1,6 +1,7 @@
 "use client";
 
 import { apiRequest } from "@/lib/api";
+import RequireRole from "@/components/RequireRole";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { IoIosAdd } from "react-icons/io";
@@ -28,7 +29,8 @@ const Users = () => {
   }, []);
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-slate-200">
+    <RequireRole anyOf={["ROLE_ADMIN", "ROLE_TELLER"]}>
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200">
       {/* Header */}
       <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200">
         <div>
@@ -102,6 +104,7 @@ const Users = () => {
         </table>
       </div>
     </div>
+    </RequireRole>
   );
 };
 
