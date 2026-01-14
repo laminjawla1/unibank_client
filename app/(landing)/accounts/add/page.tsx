@@ -4,6 +4,7 @@ import Link from "next/link";
 import { apiRequest } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import RequireRole from "@/components/RequireRole";
 
 type Customer = {
   uuid: string;
@@ -54,8 +55,9 @@ const AddAccount = () => {
   };
 
   return (
-    <div className="max-w-3xl bg-white rounded-xl border border-slate-200 shadow-sm p-6">
-      <form onSubmit={handleFormSubmission}>
+    <RequireRole anyOf={["ROLE_ADMIN", "ROLE_TELLER"]}>
+      <div className="max-w-3xl bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+        <form onSubmit={handleFormSubmission}>
         {/* Header */}
         <div className="border-b border-slate-200 pb-4 mb-6">
           <h2 className="text-lg font-semibold text-slate-800">Add Account</h2>
@@ -136,8 +138,9 @@ const AddAccount = () => {
             Create Account
           </button>
         </div>
-      </form>
-    </div>
+        </form>
+      </div>
+    </RequireRole>
   );
 };
 

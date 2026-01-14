@@ -4,8 +4,9 @@ import Link from "next/link";
 import { apiRequest } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { User } from "../../users/page";
 import { Account } from "../page";
+import { useAuthStore } from "@/stores/authStore";
+import RequireRole from "@/components/RequireRole";
 
 type TransactionType = {
   uuid: string;
@@ -17,7 +18,7 @@ const AddTransaction = () => {
   const [transactionTypes, setTransactionTypes] = useState<TransactionType[]>(
     []
   );
-  const [users, setUsers] = useState<User[]>([]);
+  const user = useAuthStore((s) => s.user);
 
   const router = useRouter();
 
@@ -25,11 +26,9 @@ const AddTransaction = () => {
     const fetchData = async () => {
       const accountsData = await apiRequest("/accounts");
       const transactionTypesData = await apiRequest("/transactions/types");
-      const usersData = await apiRequest("/users");
 
       setAccounts(accountsData);
       setTransactionTypes(transactionTypesData);
-      setUsers(usersData);
     };
 
     fetchData();
@@ -46,7 +45,7 @@ const AddTransaction = () => {
           accountId: formData.get("accountId"),
           transactionTypeId: formData.get("transactionTypeId"),
           amount: Number(formData.get("amount")),
-          performedBy: formData.get("performedBy"),
+          performedBy: user?.uuid,
         },
       });
 
@@ -57,8 +56,9 @@ const AddTransaction = () => {
   };
 
   return (
-    <div className="max-w-3xl bg-white rounded-xl border border-slate-200 shadow-sm p-6">
-      <form onSubmit={handleFormSubmission}>
+    <RequireRole anyOf={["ROLE_ADMIN", "ROLE_TELLER", "ROLE_FINANCE"]}>
+      <div className="max-w-3xl bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+        <form onSubmit={handleFormSubmission}>
         {/* Header */}
         <div className="border-b border-slate-200 pb-4 mb-6">
           <h2 className="text-lg font-semibold text-slate-800">
@@ -125,23 +125,10 @@ const AddTransaction = () => {
             />
           </div>
 
-          {/* Performed By */}
           <div className="sm:col-span-6">
-            <label className="block text-sm font-medium text-slate-700">
-              Performed By
-            </label>
-            <select
-              name="performedBy"
-              required
-              className="mt-2 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-slate-500 focus:ring-1 focus:ring-slate-500"
-            >
-              <option value="">Select user</option>
-              {users.map((user) => (
-                <option key={user.uuid} value={user.uuid}>
-                  {user.firstName} {user.lastName}
-                </option>
-              ))}
-            </select>
+            <p className="text-xs text-slate-500">
+              Transaction will be recorded as performed by your account.
+            </p>
           </div>
         </div>
 
@@ -161,8 +148,9 @@ const AddTransaction = () => {
             Create Transaction
           </button>
         </div>
-      </form>
-    </div>
+        </form>
+      </div>
+    </RequireRole>
   );
 };
 

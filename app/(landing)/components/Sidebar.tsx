@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { GoPeople } from "react-icons/go";
@@ -5,6 +7,8 @@ import { GrTransaction } from "react-icons/gr";
 import { MdOutlineAccountBalanceWallet } from "react-icons/md";
 import { PiUsersLight } from "react-icons/pi";
 import { SiWebauthn } from "react-icons/si";
+import { useAuthStore } from "@/stores/authStore";
+import { hasAnyRole } from "@/lib/authz";
 
 type SidebarProps = {
   open: boolean;
@@ -23,30 +27,41 @@ const sidebarItems = [
     href: "/accounts",
     label: "Accounts",
     icon: <MdOutlineAccountBalanceWallet className={sidebarIconClass} />,
+    roles: ["ROLE_ADMIN", "ROLE_TELLER"],
   },
   {
     href: "/customers",
     label: "Customers",
     icon: <GoPeople className={sidebarIconClass} />,
+    roles: ["ROLE_ADMIN", "ROLE_TELLER"],
   },
   {
     href: "/transactions",
     label: "Transactions",
     icon: <GrTransaction className={sidebarIconClass} />,
+    roles: ["ROLE_ADMIN", "ROLE_TELLER", "ROLE_FINANCE"],
   },
   {
     href: "/roles",
     label: "Roles",
     icon: <SiWebauthn className={sidebarIconClass} />,
+    roles: ["ROLE_ADMIN"],
   },
   {
     href: "/users",
     label: "Users",
     icon: <PiUsersLight className={sidebarIconClass} />,
+    roles: ["ROLE_ADMIN", "ROLE_TELLER"],
   },
 ];
 
 const Sidebar = ({ open, onClose }: SidebarProps) => {
+  const user = useAuthStore((s) => s.user);
+  const visibleItems = sidebarItems.filter((item: any) => {
+    if (!item.roles) return true;
+    return hasAnyRole(user, item.roles);
+  });
+
   return (
     <>
       {/* Overlay (mobile only) */}
@@ -65,7 +80,7 @@ const Sidebar = ({ open, onClose }: SidebarProps) => {
       >
         <div className="h-full px-3 py-4 overflow-y-auto bg-white border-e border-slate-300">
           <ul className="space-y-2 font-medium">
-            {sidebarItems.map((item) => (
+            {visibleItems.map((item: any) => (
               <li key={item.href}>
                 <Link
                   href={item.href}

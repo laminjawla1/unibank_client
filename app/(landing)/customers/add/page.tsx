@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { apiRequest } from "@/lib/api";
 import { useRouter } from "next/navigation";
+import RequireRole from "@/components/RequireRole";
 
 const AddCustomer = () => {
   const router = useRouter();
@@ -31,8 +32,9 @@ const AddCustomer = () => {
   };
 
   return (
-    <div className="max-w-4xl bg-white rounded-xl border border-slate-200 shadow-sm p-6">
-      <form onSubmit={handleFormSubmission}>
+    <RequireRole anyOf={["ROLE_ADMIN", "ROLE_TELLER"]}>
+      <div className="max-w-4xl bg-white rounded-xl border border-slate-200 shadow-sm p-6">
+        <form onSubmit={handleFormSubmission}>
         {/* Header */}
         <div className="border-b border-slate-200 pb-4 mb-6">
           <h2 className="text-lg font-semibold text-slate-800">
@@ -140,8 +142,9 @@ const AddCustomer = () => {
             Save Customer
           </button>
         </div>
-      </form>
-    </div>
+        </form>
+      </div>
+    </RequireRole>
   );
 };
 
