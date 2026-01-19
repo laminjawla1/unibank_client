@@ -51,7 +51,10 @@ const AddCustomer = () => {
           <div className="grid grid-cols-1 sm:grid-cols-6 gap-x-6 gap-y-6">
             {/* Full Name */}
             <div className="sm:col-span-3">
-              <label className="block text-sm font-medium text-slate-700">
+              <label
+                htmlFor="fullName"
+                className="block text-sm font-medium text-slate-700"
+              >
                 Full Name
               </label>
               <input
@@ -64,7 +67,10 @@ const AddCustomer = () => {
 
             {/* Date of Birth */}
             <div className="sm:col-span-3">
-              <label className="block text-sm font-medium text-slate-700">
+              <label
+                htmlFor="dob"
+                className="block text-sm font-medium text-slate-700"
+              >
                 Date of Birth
               </label>
               <input
@@ -77,7 +83,10 @@ const AddCustomer = () => {
 
             {/* Phone Number */}
             <div className="sm:col-span-3">
-              <label className="block text-sm font-medium text-slate-700">
+              <label
+                htmlFor="phoneNumber"
+                className="block text-sm font-medium text-slate-700"
+              >
                 Phone Number
               </label>
               <input
@@ -91,7 +100,10 @@ const AddCustomer = () => {
 
             {/* Email */}
             <div className="sm:col-span-3">
-              <label className="block text-sm font-medium text-slate-700">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-slate-700"
+              >
                 Email Address
               </label>
               <input
@@ -103,7 +115,10 @@ const AddCustomer = () => {
 
             {/* Address */}
             <div className="sm:col-span-6">
-              <label className="block text-sm font-medium text-slate-700">
+              <label
+                htmlFor="address"
+                className="block text-sm font-medium text-slate-700"
+              >
                 Address
               </label>
               <input
@@ -116,7 +131,10 @@ const AddCustomer = () => {
 
             {/* National ID */}
             <div className="sm:col-span-3">
-              <label className="block text-sm font-medium text-slate-700">
+              <label
+                htmlFor="nationalId"
+                className="block text-sm font-medium text-slate-700"
+              >
                 National ID
               </label>
               <input

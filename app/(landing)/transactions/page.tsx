@@ -122,13 +122,9 @@ const Transactions = () => {
 
                   {/* Amount */}
                   <td
-                    className={`px-6 py-4 text-right font-semibold ${
-                      tx.transactionType === "DEPOSIT"
-                        ? "text-green-700"
-                        : tx.transactionType === "WITHDRAWAL"
-                        ? "text-red-700"
-                        : "text-slate-800"
-                    }`}
+                    className={`px-6 py-4 text-right font-semibold ${getTransactionAmountColor(
+                      tx.transactionType
+                    )}`}
                   >
                     {tx.transactionType === "WITHDRAWAL" ? "-" : "+"}
                     {formatCurrency(tx.amount)}
@@ -186,5 +182,11 @@ export const formatCurrency = (amount: number) =>
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   })}`;
+
+const getTransactionAmountColor = (transactionType: string) => {
+  if (transactionType === "DEPOSIT") return "text-green-700";
+  if (transactionType === "WITHDRAWAL") return "text-red-700";
+  return "text-slate-800";
+};
 
 export default Transactions;
