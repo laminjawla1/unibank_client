@@ -1,4 +1,5 @@
 import { useAuthStore } from "@/stores/authStore";
+import { toast } from "react-toastify";
 
 interface RequestOptions extends RequestInit {
   params?: Record<string, string | number>;
@@ -20,12 +21,11 @@ export const apiRequest = async (
   options: RequestOptions = {}
 ) => {
   const token = useAuthStore.getState().token;
-
   const { method = "GET", params, body, headers = {} } = options;
   const url = `${API_BASE_URL}${path}${params ? buildQueryString(params) : ""}`;
 
   try {
-    const res = await fetch(url, {
+    const response = await fetch(url, {
       method,
       headers: {
         "Content-Type": "application/json",
@@ -34,26 +34,33 @@ export const apiRequest = async (
       },
       body: body ? JSON.stringify(body) : undefined,
     });
-
-    let data;
-    try {
-      data = await res.json();
-    } catch {
-      data = {};
-    }
-
-    if (res.status === 401) {
-      useAuthStore.getState().logout();
-    }
     
-    if (!res.ok) {
-      const errorMessage = data?.message || `Oops! Something went wrong ${res.status}`;
-      throw new Error(errorMessage);
-    } else {
+    if (response.status === 401) useAuthStore.getState().logout();
+    
+    if (response.ok) {
+      try {
+        return await response.json();
+      } catch {
+        return null;
+      }
     }
 
-    return data;
+    const errorData = await response.json();
+    if (errorData?.errors?.message) {
+        toast.error(errorData.errors.message);
+    } else {
+      const errors = Object.entries(errorData?.errors || {});
+      errors.forEach(([field, msgs]: [string, any]) => {
+        if (Array.isArray(msgs)) {
+          msgs.forEach((msg: string) => toast.error(`${field}: ${msg}`));
+        } else {
+          toast.error(`${field}: ${msgs}`);
+        }
+      });
+    }
+    return null;
   } catch (error: any) {
-    throw new Error(error?.message || "API request failed");
+    toast.error("Failed to connect to the server.");
+    throw error;
   }
 };

@@ -1,5 +1,6 @@
 "use client";
 
+import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -11,6 +12,7 @@ type HeaderProps = {
 const Header = ({ onToggleSidebar }: HeaderProps) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const user = JSON.parse(Cookies.get("user") || "null");
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -87,11 +89,9 @@ const Header = ({ onToggleSidebar }: HeaderProps) => {
             <div className="absolute right-0 mt-2 w-48 rounded-lg border border-slate-200 bg-white shadow-lg">
               <div className="px-4 py-3 border-b border-slate-200">
                 <p className="text-sm font-semibold text-slate-800">
-                  Neil Sims
+                  {user.firstName} {user.lastName}
                 </p>
-                <p className="text-xs text-slate-500 truncate">
-                  neil.sims@flowbite.com
-                </p>
+                <p className="text-xs text-slate-500 truncate">{user.email}</p>
               </div>
 
               <ul className="py-1 text-sm text-slate-600">
@@ -109,14 +109,6 @@ const Header = ({ onToggleSidebar }: HeaderProps) => {
                     className="block px-4 py-2 hover:bg-slate-100"
                   >
                     Settings
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/earnings"
-                    className="block px-4 py-2 hover:bg-slate-100"
-                  >
-                    Earnings
                   </Link>
                 </li>
                 <li className="border-t border-slate-200">

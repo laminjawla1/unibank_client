@@ -5,6 +5,7 @@ import { apiRequest } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import RequireRole from "@/components/RequireRole";
+import { toast } from "react-toastify";
 
 type Customer = {
   uuid: string;
@@ -48,6 +49,7 @@ const AddAccount = () => {
         },
       });
 
+      toast.success("Account created successfully!");
       router.push("/accounts");
     } catch (error) {
       console.error("Error creating account:", error);

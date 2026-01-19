@@ -4,6 +4,7 @@ import { apiRequest } from "@/lib/api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export type Role = {
   uuid: string;
@@ -49,7 +50,7 @@ export default function UserRegistrationForm({
     setError("");
 
     try {
-      await apiRequest("/users/register", {
+      const data = await apiRequest("/users", {
         method: "POST",
         body: {
           firstName: formData.get("firstName"),
@@ -61,8 +62,12 @@ export default function UserRegistrationForm({
         },
       });
 
-      router.push(successRedirectHref);
+      if (data != null) {
+        toast.success("User created successfully!");
+        router.push(successRedirectHref);
+      }
     } catch (e) {
+      console.log(e);
       const message = e instanceof Error ? e.message : "Failed to create user";
       setError(message);
     } finally {

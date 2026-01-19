@@ -2,6 +2,7 @@
 
 import { create } from "zustand";
 import Cookies from "js-cookie";
+import { User } from "@/app/(landing)/users/page";
 
 const USER_STORAGE_KEY = "unibank_user";
 
@@ -45,6 +46,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     storeUser(user);
 
     Cookies.set("token", token, { expires: 1 / 48, path: "/" });
+    Cookies.set("user", JSON.stringify(user), { expires: 1 / 48, path: "/" });
 
     if (logoutTimer) clearTimeout(logoutTimer);
 

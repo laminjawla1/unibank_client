@@ -8,6 +8,7 @@ import LoadingScreen from "./components/ui/LoadingScreen";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import { apiRequest } from "@/lib/api";
+import { ToastContainer } from "react-toastify";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [loadingAuth, setLoadingAuth] = useState(true);
@@ -24,6 +25,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       // keep token in store; user will be resolved from /users/me
       login(tokenFromCookie, user ?? { name: "User" });
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoadingAuth(false);
   }, [login, user]);
 
@@ -57,11 +59,18 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   if (loadingAuth || !token) return <LoadingScreen />;
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        rtl={false}
+      />
       <Header onToggleSidebar={() => setSidebarOpen((prev) => !prev)} />
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="p-4 sm:ml-64 mt-14">
-        <div className="p-4 rounded-base">{children}</div>
+        <div className="rounded-base">{children}</div>
       </div>
     </>
   );
