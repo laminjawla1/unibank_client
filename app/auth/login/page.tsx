@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { apiRequest } from "@/lib/api";
@@ -40,7 +41,6 @@ const Login = () => {
 
       login(data.token, data.user);
       router.push("/dashboard");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message || "Oops! Something went wrong");
     } finally {
