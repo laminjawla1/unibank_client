@@ -1,8 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+```markdown
+# 🏦 UnBank Client
 
-## Getting Started
+A modern **banking web client** built with **Next.js** and TypeScript.  
+This project serves as the frontend interface for the UniBank platform, supporting core banking UI, navigation, and interaction with backend APIs.
 
-First, run the development server:
+---
+
+## 🚀 Features
+
+- List and create operations for key entities (e.g., customers, accounts, transactions, users, roles)
+- Built with **Next.js (App Router)** and **TypeScript**
+- TailwindCSS for responsive UI
+- Modular folder structure for scalable development
+- State management with stores (e.g., Zustand or similar)
+
+---
+
+## 📁 Project Structure
+```
+
+├── app/ # Next.js app routes
+├── components/ # Shared UI components
+├── lib/ # Utilities and libs
+├── public/ # Static assets
+├── stores/ # State management stores
+├── README.md # This file
+├── next.config.ts # Next.js config
+├── tailwind.config.js # TailwindCSS config
+└── tsconfig.json # TypeScript config
+
+````
+
+---
+
+## ⚡ Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/laminjawla1/unibank_client.git
+cd unibank_client
+````
+
+### 2. Install dependencies
+
+Using npm:
+
+```bash
+npm install
+```
+
+Or with Yarn:
+
+```bash
+yarn
+```
+
+Or with pnpm:
+
+```bash
+pnpm install
+```
+
+### 3. Run the development server
 
 ```bash
 npm run dev
@@ -10,27 +70,67 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open your browser and navigate to:
+➡️ `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The app supports **fast refresh** — changes update automatically as you work.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🛠️ Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+| Technology           | Purpose                      |
+| -------------------- | ---------------------------- |
+| Next.js              | React framework for frontend |
+| TypeScript           | Static typing for safer code |
+| TailwindCSS          | Utility-first styling        |
+| Zustand (optional)   | State management             |
+| Vercel (recommended) | Easy deployment              |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📌 Development Notes
 
-## Deploy on Vercel
+- This project was bootstrapped with **Create Next App** and uses Next.js routing and server/client components. ([GitHub][1])
+- You can edit pages under the `/app` directory — Next.js automatically handles routing.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## ✨ Deployment
+
+You can deploy this client to **Vercel**, **Netlify**, or any platform that supports Next.js apps.
+
+Example with Vercel:
+
+```bash
+vercel
+```
+
+Configure environment variables (if required) directly in Vercel dashboard.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome!
+To contribute:
+
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/my-feature`)
+3. Commit your changes (`git commit -m "Add new feature"`)
+4. Push to GitHub (`git push origin feature/my-feature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is open source — feel free to use, modify, and share!
+
+---
+
+## ❤️ Acknowledgments
+
+Thank you to all contributors and reviewers.
