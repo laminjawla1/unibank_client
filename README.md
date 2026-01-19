@@ -1,4 +1,3 @@
-```markdown
 # 🏦 UnBank Client
 
 A modern **banking web client** built with **Next.js** and TypeScript.  
@@ -17,19 +16,18 @@ This project serves as the frontend interface for the UniBank platform, supporti
 ---
 
 ## 📁 Project Structure
+
 ```
-
-├── app/ # Next.js app routes
-├── components/ # Shared UI components
-├── lib/ # Utilities and libs
-├── public/ # Static assets
-├── stores/ # State management stores
-├── README.md # This file
-├── next.config.ts # Next.js config
-├── tailwind.config.js # TailwindCSS config
-└── tsconfig.json # TypeScript config
-
-````
+├── app/                # Next.js app routes
+├── components/         # Shared UI components
+├── lib/                # Utilities and libs
+├── public/             # Static assets
+├── stores/             # State management stores
+├── README.md           # This file
+├── next.config.ts      # Next.js config
+├── tailwind.config.js  # TailwindCSS config
+└── tsconfig.json       # TypeScript config
+```
 
 ---
 
@@ -40,7 +38,7 @@ This project serves as the frontend interface for the UniBank platform, supporti
 ```bash
 git clone https://github.com/laminjawla1/unibank_client.git
 cd unibank_client
-````
+```
 
 ### 2. Install dependencies
 
@@ -93,7 +91,7 @@ The app supports **fast refresh** — changes update automatically as you work.
 
 ## 📌 Development Notes
 
-- This project was bootstrapped with **Create Next App** and uses Next.js routing and server/client components. ([GitHub][1])
+- This project was bootstrapped with **Create Next App** and uses Next.js routing and server/client components.
 - You can edit pages under the `/app` directory — Next.js automatically handles routing.
 
 ---
